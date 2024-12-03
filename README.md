@@ -1,3 +1,9 @@
+# annosaurus-java-sdk
+
+This is a client SDK for interacting with the [annosaurus](https://github.com/mbari-org/annosaurus) microservice. It's mostly auto-generated using [Kiota](https://learn.microsoft.com/en-us/openapi/kiota/overview).
+
+
+
 ## To regenerate the SDK
 
 1. Copy the open api yaml file into each project's src/main/resources folder as docs.yaml
