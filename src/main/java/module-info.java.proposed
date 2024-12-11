@@ -1,0 +1,19 @@
+module org.mbari.vars.annosaurus.sdk {
+
+    exports org.mbari.vars.annosaurus.sdk;
+    exports org.mbari.vars.annosaurus.sdk.kiota;
+    exports org.mbari.vars.annosaurus.sdk.kiota.models;
+    exports org.mbari.vars.annosaurus.sdk.r1;
+    exports org.mbari.vars.annosaurus.sdk.r1.models;
+
+    requires com.google.gson;
+    requires com.microsoft.kiota;
+    requires jakarta.annotation;
+    requires java.base;
+    requires java.desktop;
+    requires java.net.http;
+    requires okhttp3;
+    requires okhttp3.logging;
+    requires vcr4j.core;
+    
+}

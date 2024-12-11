@@ -6,7 +6,7 @@
 
   <groupId>org.mbari.vars</groupId>
   <artifactId>annosaurus-java-sdk</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Java SDK for the annosaurus microservice</description>
@@ -39,7 +39,9 @@
 
     <auth0.version>4.4.0</auth0.version>
     <kiota.version>1.8.0</kiota.version>
+    <methanol.version>1.7.0</methanol.version>
     <okhttp3.version>4.12.0</okhttp3.version>
+    <vcr4j.version>5.3.1</vcr4j.version>
   </properties>
 
   <dependencyManagement>
@@ -55,6 +57,18 @@
   </dependencyManagement>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.mbari.vcr4j</groupId>
+      <artifactId>vcr4j-core</artifactId>
+      <version>${vcr4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.mizosoft.methanol</groupId>
+      <artifactId>methanol</artifactId>
+      <version>${methanol.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.auth0</groupId>

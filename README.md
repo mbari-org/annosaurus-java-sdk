@@ -17,7 +17,7 @@ var baseUrl = "http://localhost/anno/v1" // Substitute yoru services URL
 var apiKey  = "foobar"                   // Substitute your services API KEY
 var annosaurus = AnnosaurusFactory.create(baseUrl, apiKey)
 
-// Use the service! Some examples
+// Use the service! Some examples.
 // Get 1000 annotations
 List<AnnotationSC> annos = annosaurus.v1().fast().get(gcr -> gcr.queryParameters.limit = 10000);
 
