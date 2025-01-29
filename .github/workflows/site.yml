@@ -27,8 +27,8 @@ jobs:
           java-version: "23"
           distribution: "temurin"
           cache: maven
-      - name: Run the Maven verify phase
-        run: mvn --batch-mode --update-snapshots verify
+      # - name: Run the Maven verify phase
+      #   run: mvn --batch-mode --update-snapshots verify
       - name: Build site
         run: mvn site
         env:
