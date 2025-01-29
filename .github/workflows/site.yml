@@ -47,4 +47,8 @@ jobs:
     environment: 
       name: github-pages
       url: ${{ steps.generate_site.outputs.pages_url }}
+    steps:
+      - name: Deploy to Gihub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
     
