@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class AnnosaurusFactoryIntegrationTest {
     String baseUrl = "http://localhost:8082";
-    String apiKey = "foo";
+    String apiKey = "foofoo";
   
     @Test
     void fastGetTest() {
