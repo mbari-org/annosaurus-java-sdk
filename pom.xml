@@ -10,7 +10,6 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Java SDK for the annosaurus microservice</description>
-  <!-- FIXME change it to the project's website -->
   <url>https://github.com/mbari-org/annosaurus-java-sdk</url>
 
   <licenses>
@@ -39,7 +38,7 @@
 
     <auth0.version>4.4.0</auth0.version>
     <kiota.version>1.8.0</kiota.version>
-    <methanol.version>1.7.0</methanol.version>
+    <methanol.version>1.8.1</methanol.version>
     <okhttp3.version>4.12.0</okhttp3.version>
     <vcr4j.version>5.3.1</vcr4j.version>
   </properties>
@@ -135,6 +134,20 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk-platform-logging</artifactId>
+      <version>2.0.15</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.5.17</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
