@@ -15,6 +15,8 @@ This is a client SDK for interacting with the [annosaurus](https://github.com/mb
 ```java
 var baseUrl = "http://localhost/anno/v1" // Substitute yoru services URL
 var apiKey  = "foobar"                   // Substitute your services API KEY
+
+// -- Kiota API
 var annosaurus = AnnosaurusFactory.create(baseUrl, apiKey)
 
 // Use the service! Some examples.
@@ -34,6 +36,11 @@ annotation.setObserver("Observer");
 annotation.setObservationTimestamp("2021-09-01T00:00:00Z");
 annotation.setVideoReferenceUuid(UUID.fromString("feefe228-c503-4add-ae19-9cd713ee2175"));
 var created = annosaurus.v1().annotations().post(annotation);
+
+// -- AnnotationService APi
+var annotationService = new AnnosaurusHttpClient(URI.create(baseUrl), apiKey);
+List<String> groups = annotationService.findGroups();
+
 ```
 
 ## To regenerate the SDK
