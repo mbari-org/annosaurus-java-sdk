@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 import org.mbari.vars.annosaurus.sdk.r1.etc.gson.*;
 
 
-public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationService {
+public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationService, VideoReferenceService {
 
 
     private final JwtHttpClient jwtHttpClient;
@@ -864,5 +864,99 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
                 .build();
         debugLog.logRequest(request, json);
         return submit(request, 200, body -> gson.fromJson(body, CachedVideoReference.class));
+    }
+
+    @Override
+    public CompletableFuture<List<String>> findAllMissionIds() {
+        var uri = buildUri("/videoreferences/missionids");
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+        debugLog.logRequest(request, null);
+        return submit(request, 200, body -> gson.fromJson(body, TYPE_LIST_STRING));
+    }
+
+    @Override
+    public CompletableFuture<List<String>> findAllMissionContacts() {
+        var uri = buildUri("/videoreferences/missioncontacts");
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+        debugLog.logRequest(request, null);
+        return submit(request, 200, body -> gson.fromJson(body, TYPE_LIST_STRING));
+    }
+
+    @Override
+    public CompletableFuture<List<UUID>> findAlLVideoReferenceUuids() {
+        var uri = buildUri("/videoreferences/videoreferences");
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+        debugLog.logRequest(request, null);
+        return submit(request, 200, body -> gson.fromJson(body, TYPE_LIST_UUID));
+    }
+
+    @Override
+    public CompletableFuture<CachedVideoReference> create(CachedVideoReference videoReference) {
+        var uri = buildUri("/videoreferences");
+        var json = gson.toJson(videoReference);
+        var auth = authorizeIfNeeded();
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Authorization", "BEARER " + auth.getAccessToken())
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        debugLog.logRequest(request, json);
+        return submit(request, 200, body -> gson.fromJson(body, CachedVideoReference.class));
+    }
+
+    @Override
+    public CompletableFuture<CachedVideoReference> update(UUID videoReferenceUuid,
+            CachedVideoReference videoReference) {
+        var uri = buildUri("/videoreferences/" + videoReferenceUuid);
+        var json = gson.toJson(videoReference);
+        var auth = authorizeIfNeeded();
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Authorization", "BEARER " + auth.getAccessToken())
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        debugLog.logRequest(request, json);
+        return submit(request, 200, body -> gson.fromJson(body, CachedVideoReference.class));
+    }
+
+    @Override
+    public CompletableFuture<Void> delete(UUID videoReferenceUuid) {
+        var uri = buildUri("/videoreferences/" + videoReferenceUuid);
+        var auth = authorizeIfNeeded();
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Authorization", "BEARER " + auth.getAccessToken())
+                .DELETE()
+                .build();
+        debugLog.logRequest(request, null);
+        return submit(request, 204).thenApply(v -> null);
+    }
+
+    @Override
+    public CompletableFuture<CachedVideoReference> findVideoReferenceByUuid(UUID videoReferenceUuid) {
+        var uri = buildUri("/videoreferences/" + videoReferenceUuid);
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+        debugLog.logRequest(request, null);
+        return submitSearch(request, 200, body -> gson.fromJson(body, CachedVideoReference.class), null);
     }
 }

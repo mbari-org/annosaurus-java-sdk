@@ -58,7 +58,6 @@ public class AnnosaurusKiotaClient implements AnnotationService {
 
     @Override
     public CompletableFuture<List<AnnotationCount>> countAnnotationsGroupByVideoReferenceUuid() {
-        // TODO Auto-generated method stub
         return CompletableFuture.supplyAsync(() -> {
             var response = annosaurus.v1()
                 .observations()
@@ -109,20 +108,46 @@ public class AnnosaurusKiotaClient implements AnnotationService {
 
     @Override
     public CompletableFuture<List<AnnotationCount>> countImagedMomentsGroupByVideoReferenceUuid() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'countImagedMomentsGroupByVideoReferenceUuid'");
+        return CompletableFuture.supplyAsync(() -> {
+            var response = annosaurus.v1()
+                .observations()
+                .counts()
+                .get();
+            
+            return response.stream()
+                .map(r -> new AnnotationCount(r.getVideoReferenceUuid(), r.getCount()))
+                .toList();
+        }, executor);
+
     }
 
     @Override
     public CompletableFuture<ConceptCount> countObservationsByConcept(String concept) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'countObservationsByConcept'");
+        return CompletableFuture.supplyAsync(() -> {
+            var response = annosaurus.v1()
+                .observations()
+                .concept()
+                .count()
+                .byConcept(concept)
+                .get();
+            
+            return new ConceptCount(response.getConcept(), response.getCount().intValue());
+        }, executor);
     }
 
     @Override
     public CompletableFuture<AnnotationCount> countImagedMomentsModifiedBefore(UUID videoReferenceUuid, Instant date) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'countImagedMomentsModifiedBefore'");
+        return CompletableFuture.supplyAsync(() -> {
+            var response = annosaurus.v1()
+                .imagedmoments()
+                .videoreference()
+                .modified()
+                .byUuid(videoReferenceUuid)
+                .byDate(date.toString())
+                .get();
+            
+            return new AnnotationCount(response.getVideoReferenceUuid(), response.getCount());
+        }, executor);
     }
 
     @Override
