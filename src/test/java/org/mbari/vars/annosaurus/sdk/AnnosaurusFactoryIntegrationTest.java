@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class AnnosaurusFactoryIntegrationTest {
-    String baseUrl = "http://localhost:8082";
-    String apiKey = "foofoo";
+    String baseUrl = "https://gehenna.shore.mbari.org/anno";
+    String apiKey = "foo";
   
     @Test
     void fastGetTest() {
