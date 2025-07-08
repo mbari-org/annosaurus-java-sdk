@@ -21,6 +21,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+
+import org.mbari.vars.annosaurus.sdk.kiota.models.DeleteCountSC;
 import org.mbari.vars.annosaurus.sdk.r1.etc.gson.*;
 
 
@@ -47,6 +49,7 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
                 "Authorization", "APIKEY " + apiKey,
                 body -> gson.fromJson(body, Authorization.class));
     }
+
 
     public AnnosaurusHttpClient(String baseUri, Duration timeout, String apikey) {
         this(newHttpClient(timeout), URI.create(baseUri), apikey);
@@ -154,7 +157,8 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
 
     @Override
     public CompletableFuture<ConceptCount> countObservationsByConcept(String concept) {
-        var uri = buildUri("/observations/concept/count/" + concept);
+        var encodedConcept = concept.trim().replaceAll(" ", "%20");
+        var uri = buildUri("/observations/concept/count/" + encodedConcept);
         var request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Accept", "application/json")
@@ -320,6 +324,21 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
                 .build();
         debugLog.logRequest(request, json);
         return submit(request, 204).thenApply(v -> true);
+    }
+
+    @Override
+    public CompletableFuture<DeleteCount> deleteAnnotationsByVideoReferenceUuid(UUID videoReferenceUuid) {
+        var uri = buildUri("/fast/videoreference/" + videoReferenceUuid);
+        var auth = authorizeIfNeeded();
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Authorization", "BEARER " + auth.getAccessToken())
+                .header("Accept", "application/json")
+                .DELETE()
+                .build();
+        debugLog.logRequest(request, null);
+        return submit(request, 200, body -> gson.fromJson(body, DeleteCountSC.class))
+                .thenApply(DeleteCount::fromKiota);
     }
 
     @Override

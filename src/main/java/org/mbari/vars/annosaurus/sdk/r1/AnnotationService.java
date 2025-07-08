@@ -67,6 +67,8 @@ public interface AnnotationService {
 
     CompletableFuture<Boolean> deleteAnnotations(Collection<UUID> observationUuids);
 
+    CompletableFuture<DeleteCount> deleteAnnotationsByVideoReferenceUuid(UUID videoReferenceUuid);
+
     CompletableFuture<Boolean> deleteAssociation(UUID associationUuid);
 
     CompletableFuture<Boolean> deleteAssociations(Collection<UUID> associationUuids);

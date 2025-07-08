@@ -26,6 +26,7 @@ import org.mbari.vars.annosaurus.sdk.r1.models.ConceptsRenamed;
 import org.mbari.vars.annosaurus.sdk.r1.models.ConcurrentRequest;
 import org.mbari.vars.annosaurus.sdk.r1.models.ConcurrentRequestCount;
 import org.mbari.vars.annosaurus.sdk.r1.models.Count;
+import org.mbari.vars.annosaurus.sdk.r1.models.DeleteCount;
 import org.mbari.vars.annosaurus.sdk.r1.models.Image;
 import org.mbari.vars.annosaurus.sdk.r1.models.ImagedMoment;
 import org.mbari.vars.annosaurus.sdk.r1.models.Index;
@@ -209,6 +210,18 @@ public class AnnosaurusKiotaClient implements AnnotationService {
     public CompletableFuture<Boolean> deleteAnnotations(Collection<UUID> observationUuids) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteAnnotations'");
+    }
+
+    @Override
+    public CompletableFuture<DeleteCount> deleteAnnotationsByVideoReferenceUuid(UUID videoReferenceUuid) {
+        return CompletableFuture.supplyAsync(() -> {
+            var response = annosaurus.v1()
+                .fast()
+                .videoreference()
+                .byVideoReferenceUuid(videoReferenceUuid)
+                .delete();
+            return DeleteCount.fromKiota(response); // No Content
+        }, executor);
     }
 
     @Override

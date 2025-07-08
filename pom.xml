@@ -6,7 +6,7 @@
 
   <groupId>org.mbari.vars</groupId>
   <artifactId>annosaurus-java-sdk</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Java SDK for the annosaurus microservice</description>
