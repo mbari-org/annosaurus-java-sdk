@@ -14,7 +14,7 @@ public interface VideoReferenceService {
 
     CompletableFuture<CachedVideoReference> findVideoReferenceByUuid(UUID videoReferenceUuid);
 
-    CompletableFuture<List<UUID>> findAlLVideoReferenceUuids();
+    CompletableFuture<List<UUID>> findAllCachedVideoVideoReferenceUuids();
 
     CompletableFuture<CachedVideoReference> create(CachedVideoReference videoReference);
 

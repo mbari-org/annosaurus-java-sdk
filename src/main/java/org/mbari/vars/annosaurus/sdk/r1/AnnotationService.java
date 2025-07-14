@@ -141,8 +141,6 @@ public interface AnnotationService {
 
     CompletableFuture<CachedVideoReference> findVideoReferenceByVideoReferenceUuid(UUID videoReferenceUuid);
 
-    CompletableFuture<List<UUID>> findAllCachedVideoVideoReferenceUuids();
-
     CompletableFuture<Collection<AncillaryData>> merge(UUID videoReferenceUuid, Collection<AncillaryData> data);
 
     CompletableFuture<ConceptsRenamed> renameConcepts(String oldConcept, String newConcept);
