@@ -737,6 +737,22 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
     }
 
     @Override
+    public CompletableFuture<ConceptsRenamed> renameToConcepts(String oldConcept, String newConcept) {
+        var uri = buildUri("/associations/toconcept/rename");
+        var json = gson.toJson(Map.of("old", oldConcept, "new", newConcept));
+        var auth = authorizeIfNeeded();
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Authorization", "BEARER " + auth.getAccessToken())
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        debugLog.logRequest(request, json);
+        return submit(request, 200, body -> gson.fromJson(body, ConceptsRenamed.class));
+    }
+
+    @Override
     public CompletableFuture<Annotation> updateAnnotation(Annotation annotation) {
         var uri = buildUri("/annotations/" + annotation.getObservationUuid());
         var json = gson.toJson(annotation);

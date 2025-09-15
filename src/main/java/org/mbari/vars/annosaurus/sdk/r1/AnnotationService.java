@@ -145,6 +145,8 @@ public interface AnnotationService {
 
     CompletableFuture<ConceptsRenamed> renameConcepts(String oldConcept, String newConcept);
 
+    CompletableFuture<ConceptsRenamed> renameToConcepts(String oldConcept, String newConcept);
+
     CompletableFuture<Annotation> updateAnnotation(Annotation annotation);
 
     CompletableFuture<Collection<Annotation>> updateAnnotations(Collection<Annotation> annotations);

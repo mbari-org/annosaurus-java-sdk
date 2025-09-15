@@ -422,6 +422,12 @@ public class AnnosaurusKiotaClient implements AnnotationService {
     }
 
     @Override
+    public CompletableFuture<ConceptsRenamed> renameToConcepts(String oldConcept, String newConcept) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'renameToConcepts'");
+    }
+
+    @Override
     public CompletableFuture<Annotation> updateAnnotation(Annotation annotation) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateAnnotation'");
