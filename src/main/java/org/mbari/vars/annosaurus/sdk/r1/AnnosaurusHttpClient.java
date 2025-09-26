@@ -985,7 +985,7 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
 
     @Override
     public CompletableFuture<CachedVideoReference> findVideoReferenceByUuid(UUID videoReferenceUuid) {
-        var uri = buildUri("/videoreferences/" + videoReferenceUuid);
+        var uri = buildUri("/videoreferences/videoreference/" + videoReferenceUuid);
         var request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Accept", "application/json")
