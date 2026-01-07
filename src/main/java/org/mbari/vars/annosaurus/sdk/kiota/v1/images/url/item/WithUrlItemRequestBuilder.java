@@ -38,7 +38,7 @@ public class WithUrlItemRequestBuilder extends BaseRequestBuilder {
         super(requestAdapter, "{+baseurl}/v1/images/url/{url}", rawUrl);
     }
     /**
-     * Find images by the image file's URL
+     * Find images by the image file&apos;s URL
      * @return a {@link ImageSC}
      * @throws BadRequest When receiving a 400 status code
      * @throws NotFound When receiving a 404 status code
@@ -49,7 +49,7 @@ public class WithUrlItemRequestBuilder extends BaseRequestBuilder {
         return get(null);
     }
     /**
-     * Find images by the image file's URL
+     * Find images by the image file&apos;s URL
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return a {@link ImageSC}
      * @throws BadRequest When receiving a 400 status code
@@ -66,7 +66,7 @@ public class WithUrlItemRequestBuilder extends BaseRequestBuilder {
         return this.requestAdapter.send(requestInfo, errorMapping, ImageSC::createFromDiscriminatorValue);
     }
     /**
-     * Find images by the image file's URL
+     * Find images by the image file&apos;s URL
      * @return a {@link RequestInformation}
      */
     @jakarta.annotation.Nonnull
@@ -74,7 +74,7 @@ public class WithUrlItemRequestBuilder extends BaseRequestBuilder {
         return toGetRequestInformation(null);
     }
     /**
-     * Find images by the image file's URL
+     * Find images by the image file&apos;s URL
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return a {@link RequestInformation}
      */

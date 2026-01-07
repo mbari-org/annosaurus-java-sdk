@@ -36,9 +36,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>21</maven.compiler.release>
 
-    <auth0.version>4.4.0</auth0.version>
-    <kiota.version>1.8.0</kiota.version>
-    <methanol.version>1.8.1</methanol.version>
+    <auth0.version>4.5.0</auth0.version>
+    <kiota.version>1.9.0</kiota.version>
+    <methanol.version>1.9.0</methanol.version>
     <okhttp3.version>4.12.0</okhttp3.version>
     <vcr4j.version>5.3.1</vcr4j.version>
   </properties>
@@ -48,7 +48,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.11.0</version>
+        <version>6.0.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

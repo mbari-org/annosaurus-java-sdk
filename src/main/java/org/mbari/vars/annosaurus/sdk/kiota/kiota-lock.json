@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "38009293A1044B8136AB10462F74496CC80CBE6671226B59FA19A6D98DDA287FEDA14A64831BF8666F1F16262B82B003E1B72DB9C184AF27D73BDEB32ED3C5A8",
+  "descriptionHash": "ED9F0DC81EC63FEC753E9636F03066314BB8E7AE01AEEA0D84863F57BE6022B57716C5E9CD898128502EEC2DD10EA1064F3E9D6AC76D2EE214B52DDAF814DE46",
   "descriptionLocation": "../../../../../../../resources/docs.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.20.0",
+  "kiotaVersion": "1.29.0",
   "clientClassName": "Annosaurus",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "org.mbari.vars.annosaurus.sdk.kiota",

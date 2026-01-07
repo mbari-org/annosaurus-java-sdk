@@ -50,5 +50,5 @@ List<String> groups = annotationService.findGroups();
 3. Run the following command in the project's root directory
 
 ```shell
-kiota generate -l java -c Annosaurus -n org.mbari.vars.annosaurus.sdk.kiota -d src/main/resources/docs.yaml -o ./src/main/java/org/mbari/vars/annosaurius/sdk/kiota
+kiota generate -l java -c Annosaurus -n org.mbari.vars.annosaurus.sdk.kiota -d src/main/resources/docs.yaml -o ./src/main/java/org/mbari/vars/annosaurus/sdk/kiota
 ```
