@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class AnnosaurusFactoryIntegrationTest {
     String baseUrl = "https://gehenna.shore.mbari.org/anno";
-    String apiKey = "foo";
+    String apiKey = "foofoo";
   
     @Test
     void fastGetTest() {

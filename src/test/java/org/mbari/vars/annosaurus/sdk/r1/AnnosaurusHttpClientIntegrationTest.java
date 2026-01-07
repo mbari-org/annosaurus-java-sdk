@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class AnnosaurusHttpClientIntegrationTest {
 
     String baseUrl = "https://gehenna.shore.mbari.org/anno/v1";
-    String apiKey = "foo";
+    String apiKey = "foofoo";
 
     @Test
     void countObservationsByConcept() {
