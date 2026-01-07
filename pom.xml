@@ -6,7 +6,7 @@
 
   <groupId>org.mbari.vars</groupId>
   <artifactId>annosaurus-java-sdk</artifactId>
-  <version>0.0.9</version>
+  <version>0.0.10</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Java SDK for the annosaurus microservice</description>
@@ -305,6 +305,19 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>integration-tests</id>
+                    <goals>
+                        <goal>integration-test</goal>
+                        <goal>verify</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
 

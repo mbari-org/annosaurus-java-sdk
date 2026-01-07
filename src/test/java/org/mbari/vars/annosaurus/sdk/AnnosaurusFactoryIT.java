@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import java.util.UUID;
 
-public class AnnosaurusFactoryIntegrationTest {
+public class AnnosaurusFactoryIT {
     String baseUrl = "https://gehenna.shore.mbari.org/anno";
     String apiKey = "foofoo";
   

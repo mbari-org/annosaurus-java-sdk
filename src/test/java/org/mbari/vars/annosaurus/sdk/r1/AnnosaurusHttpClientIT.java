@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
-public class AnnosaurusHttpClientIntegrationTest {
+public class AnnosaurusHttpClientIT {
 
     String baseUrl = "https://gehenna.shore.mbari.org/anno/v1";
     String apiKey = "foofoo";
