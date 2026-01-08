@@ -144,6 +144,20 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
     }
 
     @Override
+    public CompletableFuture<Count> countImagesByVideoReferenceUuid(UUID videoReferenceUuid) {
+        var uri = buildUri("/fast/images/count/videoreference/" + videoReferenceUuid);
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+        debugLog.logRequest(request, null);
+        return submitSearch(request, 200,
+                body -> gson.fromJson(body, Count.class),
+                new Count(0L));
+    }
+
+    @Override
     public CompletableFuture<List<AnnotationCount>> countImagedMomentsGroupByVideoReferenceUuid() {
         var uri = buildUri("/imagedmoments/counts");
         var request = HttpRequest.newBuilder()
@@ -659,6 +673,18 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
     @Override
     public CompletableFuture<List<Image>> findImagesByVideoReferenceUuid(UUID videoReferenceUuid) {
         var uri = buildUri("/fast/images/videoreference/" + videoReferenceUuid);
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+        debugLog.logRequest(request, null);
+        return submitSearch(request, 200, body -> gson.fromJson(body, TYPE_LIST_IMAGE), new ArrayList<>());
+    }
+
+    @Override
+    public CompletableFuture<List<Image>> findImagesByVideoReferenceUuid(UUID videoReferenceUuid, Long limit, Long offset) {
+        var uri = buildUri("/fast/images/videoreference/" + videoReferenceUuid + "?limit=" + limit + "&offset=" + offset);
         var request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Accept", "application/json")

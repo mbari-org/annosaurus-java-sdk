@@ -488,5 +488,18 @@ public class AnnosaurusKiotaClient implements AnnotationService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateCachedVideoReference'");
     }
+
+    @Override
+    public CompletableFuture<Count> countImagesByVideoReferenceUuid(UUID videoReferenceUuid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'countImagesByVideoReferenceUuid'");
+    }
+
+    @Override
+    public CompletableFuture<List<Image>> findImagesByVideoReferenceUuid(UUID videoReferenceUuid, Long limit,
+            Long offset) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findImagesByVideoReferenceUuid'");
+    }
     
 }

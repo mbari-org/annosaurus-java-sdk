@@ -39,6 +39,8 @@ public interface AnnotationService {
 
     CompletableFuture<MultiRequestCount> countByMultiRequest(MultiRequest multiRequest);
 
+    CompletableFuture<Count> countImagesByVideoReferenceUuid(UUID videoReferenceUuid);
+
     CompletableFuture<List<AnnotationCount>> countImagedMomentsGroupByVideoReferenceUuid();
 
     CompletableFuture<ConceptCount> countObservationsByConcept(String concept);
@@ -134,6 +136,8 @@ public interface AnnotationService {
     CompletableFuture<Image> findImageByUuid(UUID imageReferenceUuid);
 
     CompletableFuture<List<Image>> findImagesByVideoReferenceUuid(UUID videoReferenceUuid);
+
+    CompletableFuture<List<Image>> findImagesByVideoReferenceUuid(UUID videoReferenceUuid, Long limit, Long offset);
 
     CompletableFuture<List<ImagedMoment>> findImagedMomentsByVideoReferenceUuid(UUID videoReferenceUuid);
 
