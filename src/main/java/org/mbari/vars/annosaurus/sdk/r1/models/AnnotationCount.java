@@ -22,4 +22,5 @@ public class AnnotationCount {
     public Integer getCount() {
         return count;
     }
+
 }

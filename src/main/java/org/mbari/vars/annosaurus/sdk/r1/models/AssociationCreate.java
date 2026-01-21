@@ -11,4 +11,5 @@ public record AssociationCreate(UUID observationUuid,
     public AssociationCreate(UUID observationUuid, Association a) {
         this(observationUuid, a.getLinkName(), a.getToConcept(), a.getLinkValue(), a.getMimeType());
     }
+
 }

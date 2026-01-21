@@ -1,7 +1,14 @@
 package org.mbari.vars.annosaurus.sdk.r1.models;
 
+import java.lang.foreign.Linker.Option;
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
+
+import org.mbari.vars.annosaurus.sdk.kiota.models.CachedAncillaryDatumSC;
+import org.mbari.vars.annosaurus.sdk.r1.etc.jdk.Instants;
+
+import okhttp3.Cache;
 
 /**
  * @author Brian Schlining
@@ -217,6 +224,58 @@ public class AncillaryData {
 
     public void setImagedMomentUuid(UUID imagedMomentUuid) {
         this.imagedMomentUuid = imagedMomentUuid;
+    }
+
+    public static AncillaryData fromKiota(CachedAncillaryDatumSC kiota) {
+        AncillaryData ad = new AncillaryData();
+        Optional.ofNullable(kiota.getAltitude()).ifPresent(v -> ad.setAltitude(v.doubleValue()));
+        ad.setCrs(kiota.getCrs());
+        Optional.ofNullable(kiota.getDepthMeters()).ifPresent(v -> ad.setDepthMeters(v.doubleValue()));
+        Optional.ofNullable(kiota.getLatitude()).ifPresent(v -> ad.setLatitude(v.doubleValue()));
+        Optional.ofNullable(kiota.getLightTransmission()).ifPresent(v -> ad.setLightTransmission(v.doubleValue()));
+        Optional.ofNullable(kiota.getLongitude()).ifPresent(v -> ad.setLongitude(v.doubleValue()));
+        Optional.ofNullable(kiota.getOxygenMlL()).ifPresent(v -> ad.setOxygenMlL(v.doubleValue()));
+        Optional.ofNullable(kiota.getPhi()).ifPresent(v -> ad.setPhi(v.doubleValue()));
+        ad.setPosePositionUnits(kiota.getPosePositionUnits());
+        Optional.ofNullable(kiota.getPressureDbar()).ifPresent(v -> ad.setPressureDbar(v.doubleValue()));
+        ad.setPsi(kiota.getPsi());
+        Optional.ofNullable(kiota.getSalinity()).ifPresent(v -> ad.setSalinity(v.doubleValue()));
+        Optional.ofNullable(kiota.getTemperatureCelsius()).ifPresent(v -> ad.setTemperatureCelsius(v.doubleValue()));
+        Optional.ofNullable(kiota.getTheta()).ifPresent(v -> ad.setTheta(v.doubleValue()));
+        Optional.ofNullable(kiota.getX()).ifPresent(v -> ad.setX(v.doubleValue()));
+        Optional.ofNullable(kiota.getY()).ifPresent(v -> ad.setY(v.doubleValue()));
+        Optional.ofNullable(kiota.getZ()).ifPresent(v -> ad.setZ(v.doubleValue()));
+        ad.uuid = kiota.getUuid();
+        Optional.ofNullable(kiota.getLastUpdatedTime()).ifPresent(v -> {
+            Instants.parseIso8601(v).ifPresent(w -> ad.lastUpdatedTime = w);
+        } );
+        return ad;
+    }
+
+    public CachedAncillaryDatumSC toKiota() {
+        CachedAncillaryDatumSC kiota = new CachedAncillaryDatumSC();
+        Optional.ofNullable(this.getAltitude()).ifPresent(v -> kiota.setAltitude(v.floatValue()));
+        kiota.setCrs(this.getCrs());
+        Optional.ofNullable(this.getDepthMeters()).ifPresent(v -> kiota.setDepthMeters(v.floatValue()));
+        kiota.setLatitude(this.getLatitude());
+        Optional.ofNullable(this.getLightTransmission()).ifPresent(v -> kiota.setLightTransmission(v.floatValue()));
+        kiota.setLongitude(this.getLongitude());
+        Optional.ofNullable(this.getOxygenMlL()).ifPresent(v -> kiota.setOxygenMlL(v.floatValue()));
+        kiota.setPhi(this.getPhi());
+        kiota.setPosePositionUnits(this.getPosePositionUnits());
+        Optional.ofNullable(this.getPressureDbar()).ifPresent(v -> kiota.setPressureDbar(v.floatValue()));
+        kiota.setPsi(this.getPsi());
+        Optional.ofNullable(this.getSalinity()).ifPresent(v -> kiota.setSalinity(v.floatValue()));
+        Optional.ofNullable(this.getTemperatureCelsius()).ifPresent(v -> kiota.setTemperatureCelsius(v.floatValue()));
+        kiota.setTheta(this.getTheta());
+        kiota.setX(this.getX());
+        kiota.setY(this.getY());
+        kiota.setZ(this.getZ());
+        kiota.setUuid(this.getUuid());
+        if (this.getLastUpdatedTime() != null) {
+            kiota.setLastUpdatedTime(Instants.TIME_FORMATTER.format(this.getLastUpdatedTime()));
+        }
+        return kiota;
     }
 
 

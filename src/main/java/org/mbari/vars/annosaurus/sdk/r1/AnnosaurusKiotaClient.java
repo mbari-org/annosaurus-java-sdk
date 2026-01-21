@@ -10,9 +10,12 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 
 import org.mbari.vars.annosaurus.sdk.AnnosaurusFactory;
 import org.mbari.vars.annosaurus.sdk.kiota.Annosaurus;
+import org.mbari.vars.annosaurus.sdk.kiota.models.CountForVideoReferenceSC;
+import org.mbari.vars.annosaurus.sdk.kiota.models.NotFound;
 import org.mbari.vars.annosaurus.sdk.r1.models.AncillaryData;
 import org.mbari.vars.annosaurus.sdk.r1.models.AncillaryDataDeleteCount;
 import org.mbari.vars.annosaurus.sdk.r1.models.Annotation;
@@ -45,16 +48,20 @@ public class AnnosaurusKiotaClient implements AnnotationService {
 
     @Override
     public CompletableFuture<AnnotationCount> countAnnotations(UUID videoReferenceUuid) {
-        return CompletableFuture.supplyAsync(() -> {
-            var response = annosaurus.v1()
+        return findOne(() -> annosaurus.v1()
                 .observations()
                 .videoreference()
                 .count()
                 .byVideoReferenceUuid(videoReferenceUuid)
-                .get();
-            
-            return new AnnotationCount(response.getVideoReferenceUuid(), response.getCount());
-        }, executor);
+                .get()).thenApply((opt) -> {
+                    if (opt.isEmpty()) {
+                        return new AnnotationCount(videoReferenceUuid, 0);
+                    }
+                    else {
+                        var response = opt.get();
+                        return new AnnotationCount(response.getVideoReferenceUuid(), response.getCount());
+                    }
+                });
     }
 
     @Override
@@ -79,15 +86,21 @@ public class AnnosaurusKiotaClient implements AnnotationService {
         cr.setStartTimestamp(concurrentRequest.getStartTimestamp().toString());
         cr.setEndTimestamp(concurrentRequest.getEndTimestamp().toString());
 
-        return CompletableFuture.supplyAsync(() -> {
-            var response = annosaurus.v1()
+        return findOne(() -> annosaurus.v1()
                 .annotations()
                 .concurrent()
                 .count()
-                .post(cr);
-            
-            return new ConcurrentRequestCount(concurrentRequest, response.getCount());
-        }, executor);
+                .post(cr)
+        ).thenApply((opt) -> {
+            if (opt.isEmpty()) {
+                return new ConcurrentRequestCount(concurrentRequest, 0L);
+            }
+            else {
+                var response = opt.get();
+                return new ConcurrentRequestCount(concurrentRequest, response.getCount());
+            }
+        });
+
     }
 
     @Override
@@ -124,31 +137,42 @@ public class AnnosaurusKiotaClient implements AnnotationService {
 
     @Override
     public CompletableFuture<ConceptCount> countObservationsByConcept(String concept) {
-        return CompletableFuture.supplyAsync(() -> {
-            var response = annosaurus.v1()
+        return findOne(() -> annosaurus.v1()
                 .observations()
                 .concept()
                 .count()
                 .byConcept(concept)
-                .get();
-            
-            return new ConceptCount(response.getConcept(), response.getCount().intValue());
-        }, executor);
+                .get()
+        ).thenAccept((opt) -> {
+            if (opt.isEmpty()) {
+                return new ConceptCount(concept, 0);
+            }
+            else {
+                var response = opt.get();
+                return new ConceptCount(response.getConcept(), response.getCount().intValue());
+            }
+        });
     }
 
     @Override
     public CompletableFuture<AnnotationCount> countImagedMomentsModifiedBefore(UUID videoReferenceUuid, Instant date) {
-        return CompletableFuture.supplyAsync(() -> {
-            var response = annosaurus.v1()
+
+        return findOne(() -> annosaurus.v1()
                 .imagedmoments()
                 .videoreference()
                 .modified()
                 .byUuid(videoReferenceUuid)
                 .byDate(date.toString())
-                .get();
-            
-            return new AnnotationCount(response.getVideoReferenceUuid(), response.getCount());
-        }, executor);
+                .get()
+        ).thenApply((opt) -> {
+            if (opt.isEmpty()) {
+                return new AnnotationCount(videoReferenceUuid, 0);
+            }
+            else {
+                var response = opt.get();
+                return new AnnotationCount(response.getVideoReferenceUuid(), response.getCount());
+            }
+        });
     }
 
     @Override
@@ -500,6 +524,65 @@ public class AnnosaurusKiotaClient implements AnnotationService {
             Long offset) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findImagesByVideoReferenceUuid'");
+    }
+
+    /**
+     * Helper method that executes a supplier and wraps the result in an Optional.
+     * <p>
+     * Handles {@link NotFound} exceptions by returning an empty Optional instead
+     * of propagating the exception. Executes asynchronously using virtual threads.
+     * </p>
+     *
+     * @param <A> the type of the result
+     * @param supplier the supplier to execute
+     * @return a CompletableFuture containing an Optional with the result, or empty if not found
+     */
+    private <A> CompletableFuture<Optional<A>> findOne(Supplier<A> supplier) {
+        return findOneOrNull(supplier).thenApply(Optional::ofNullable);
+    }
+
+    /**
+     * Helper method that executes a supplier and returns null on NotFound.
+     * <p>
+     * Handles {@link NotFound} exceptions by returning null instead of propagating
+     * the exception. This simplifies error handling for callers who expect nullable
+     * results. Executes asynchronously using virtual threads.
+     * </p>
+     *
+     * @param <A> the type of the result
+     * @param supplier the supplier to execute
+     * @return a CompletableFuture containing the result, or null if not found
+     */
+    private <A> CompletableFuture<A> findOneOrNull(Supplier<A> supplier) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return supplier.get();
+            } catch (NotFound e) {
+                return null;
+            }
+        }, executor);
+    }
+
+    /**
+     * Helper method that executes a supplier and returns an empty list on NotFound.
+     * <p>
+     * Handles {@link NotFound} exceptions by returning an empty list instead of
+     * propagating the exception. This simplifies error handling for callers who
+     * expect list results. Executes asynchronously using virtual threads.
+     * </p>
+     *
+     * @param <A> the type of elements in the result list
+     * @param supplier the supplier to execute
+     * @return a CompletableFuture containing the result list, or an empty list if not found
+     */
+    private <A> CompletableFuture<List<A>> findMany(Supplier<List<A>> supplier) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return supplier.get();
+            } catch (NotFound e) {
+                return List.of();
+            }
+        }, executor);
     }
     
 }

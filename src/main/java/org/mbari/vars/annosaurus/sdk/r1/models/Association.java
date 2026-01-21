@@ -5,6 +5,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.mbari.vars.annosaurus.sdk.kiota.models.AssociationSC;
+import org.mbari.vars.annosaurus.sdk.r1.etc.jdk.Instants;
+
 /**
  * @author Brian Schlining
  * @since 2017-05-11T13:29:00
@@ -153,4 +156,31 @@ public class Association implements Cloneable, Details {
     };
 
     public static final Comparator<Association> ALPHABETICAL_COMPARATOR = Comparator.comparing(Association::toString);
+
+    public static AssociationSC fromKiota(Association kiota) {
+        AssociationSC a = new AssociationSC();
+        a.setUuid(kiota.getUuid());
+        a.setLinkName(kiota.getLinkName());
+        a.setToConcept(kiota.getToConcept());
+        a.setLinkValue(kiota.getLinkValue());
+        a.setMimeType(kiota.getMimeType());
+        Optional.ofNullable(kiota.getLastUpdatedTime()).ifPresent(v -> {
+            a.setLastUpdatedTime(v.toString());
+        });
+        return a;
+    }
+
+    public static Association toKiota(AssociationSC r1) {
+        Association kiota = new Association(
+                r1.getLinkName(),
+                r1.getToConcept(),
+                r1.getLinkValue(),
+                r1.getMimeType(),
+                r1.getUuid()
+        );
+        Optional.ofNullable(r1.getLastUpdatedTime()).ifPresent(v -> {
+            Instants.parseIso8601(v).ifPresent(w -> kiota.lastUpdatedTime = w);
+        });
+        return kiota;
+    }
 }
