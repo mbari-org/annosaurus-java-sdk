@@ -1,6 +1,5 @@
 package org.mbari.vars.annosaurus.sdk.r1.models;
 
-import java.lang.foreign.Linker.Option;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,7 +7,6 @@ import java.util.UUID;
 import org.mbari.vars.annosaurus.sdk.kiota.models.CachedAncillaryDatumSC;
 import org.mbari.vars.annosaurus.sdk.r1.etc.jdk.Instants;
 
-import okhttp3.Cache;
 
 /**
  * @author Brian Schlining
@@ -90,7 +88,7 @@ public class AncillaryData {
         this.altitude = altitude;
     }
 
-    public double getDepthMeters() {
+    public Double getDepthMeters() {
         return depthMeters;
     }
 
