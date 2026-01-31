@@ -35,6 +35,8 @@ public class BoundingBox {
     private String generator;
     private UUID imageReferenceUuid;
     private String project;
+    private String verifier;
+    private String comment;
 
     public static String LINK_NAME = "bounding box";
 
@@ -53,7 +55,8 @@ public class BoundingBox {
         this(x, y, width, height, generator, imageReferenceUuid, null);
     }
 
-    public BoundingBox(int x, int y, int width, int height, String generator, UUID imageReferenceUuid, String project) {
+    public BoundingBox(int x, int y, int width, int height, String generator, UUID imageReferenceUuid, 
+            String project, String verifier, String comment) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -61,6 +64,8 @@ public class BoundingBox {
         this.generator = generator;
         this.imageReferenceUuid = imageReferenceUuid;
         this.project = project;
+        this.verifier = verifier;
+        this.comment = comment;
     }
 
     public int getX() {
@@ -89,6 +94,14 @@ public class BoundingBox {
 
     public String getProject() {
         return project;
+    }
+
+    public String getVerifier() {
+        return verifier;
+    }
+
+    public String getComment() {
+        return comment;
     }
 
 
