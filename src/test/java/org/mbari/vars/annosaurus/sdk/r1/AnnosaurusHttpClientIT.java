@@ -27,8 +27,9 @@ import java.time.Duration;
 import org.junit.jupiter.api.Test;
 public class AnnosaurusHttpClientIT {
 
-    String baseUrl = "https://gehenna.shore.mbari.org/anno/v1";
-    String apiKey = "foofoo";
+    // public static String baseUrl = "https://gehenna.shore.mbari.org/anno/v1";
+    public static String baseUrl = "https://localhost/anno/v1";
+    public static String apiKey = "foofoo";
 
     @Test
     void countObservationsByConcept() {

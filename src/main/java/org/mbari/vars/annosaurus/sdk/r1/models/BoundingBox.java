@@ -52,7 +52,7 @@ public class BoundingBox {
     }
 
     public BoundingBox(int x, int y, int width, int height, String generator, UUID imageReferenceUuid) {
-        this(x, y, width, height, generator, imageReferenceUuid, null);
+        this(x, y, width, height, generator, imageReferenceUuid, null, null, null);
     }
 
     public BoundingBox(int x, int y, int width, int height, String generator, UUID imageReferenceUuid, 

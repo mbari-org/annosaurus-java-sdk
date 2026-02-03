@@ -399,5 +399,18 @@ public class NoopAnnotationService implements AnnotationService, VideoReferenceS
     public CompletableFuture<CachedVideoReference> updateCachedVideoReference(CachedVideoReference cvr) {
         return CompletableFuture.failedFuture(new UnsupportedOperationException("`updateCachedVideoReference` is not implemented"));
     }
+
+    @Override
+    public CompletableFuture<Count> countImagesByVideoReferenceUuid(UUID videoReferenceUuid) {
+        return CompletableFuture.failedFuture(new UnsupportedOperationException("Unimplemented method 'countImagesByVideoReferenceUuid'"));
+
+    }
+
+    @Override
+    public CompletableFuture<List<Image>> findImagesByVideoReferenceUuid(UUID videoReferenceUuid, Long limit,
+            Long offset) {
+
+        return CompletableFuture.failedFuture(new UnsupportedOperationException("Unimplemented method 'findImagesByVideoReferenceUuid'"));
+    }
     
 }

@@ -1,0 +1,32 @@
+module org.mbari.vars.annosaurus.sdk {
+
+    // Exports
+    exports org.mbari.vars.annosaurus.sdk;
+    exports org.mbari.vars.annosaurus.sdk.kiota;
+    exports org.mbari.vars.annosaurus.sdk.kiota.models;
+    exports org.mbari.vars.annosaurus.sdk.kiota.v1;
+    exports org.mbari.vars.annosaurus.sdk.r1;
+    exports org.mbari.vars.annosaurus.sdk.r1.models;
+    exports org.mbari.vars.annosaurus.sdk.r1.etc.jdk;
+    exports org.mbari.vars.annosaurus.sdk.r1.etc.gson;
+
+    // Kiota dependencies - all share the same automatic module name
+    // This works because automatic modules can have multiple JARs
+    requires transitive com.microsoft.kiota;
+
+    // HTTP clients
+    requires okhttp3;
+    requires okhttp3.logging;
+    requires transitive methanol;
+
+    // Other dependencies
+    requires transitive com.google.gson;
+    requires transitive vcr4j.core;
+    requires com.auth0.jwt;
+    requires jakarta.annotation;
+    requires static org.jetbrains.annotations;  // from Kotlin stdlib (used by Kiota)
+
+    // JDK modules
+    requires java.net.http;
+    requires java.desktop;  // for java.beans package
+}

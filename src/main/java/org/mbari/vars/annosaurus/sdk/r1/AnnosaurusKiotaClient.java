@@ -163,7 +163,7 @@ public class AnnosaurusKiotaClient implements AnnotationService {
                 .count()
                 .byConcept(concept)
                 .get()
-        ).thenAccept((opt) -> {
+        ).thenApply((opt) -> {
             if (opt.isEmpty()) {
                 return new ConceptCount(concept, 0);
             }
