@@ -116,8 +116,34 @@ public class BaseHttpClient {
      * @return
      */
     public CompletableFuture<Void> submit(HttpRequest request, int okCode) {
-        return submit(request, okCode, null);
+        // return submit(request, okCode, null);
+        {
+        var future = new CompletableFuture<Void>();
+        Runnable task = () -> {
+            try {
+                var response = client.send(request, HttpResponse.BodyHandlers.discarding());
+                debugLog.logResponse(response);
+                if (response.statusCode() == 404) {
+                    log.atInfo().log(() -> "Not found for " + request.method() + " " + request.uri());
+                    future.complete(null);
+                }
+                else if (response.statusCode() == okCode) {
+                    future.complete(null);
+                }
+                else {
+                    future.completeExceptionally(new RuntimeException("Expected a status code of " + okCode
+                            + " but it was " +  response.statusCode() + " from " + request.method() + " " + request.uri()));
+                }
+            }
+            catch (Exception e) {
+                future.completeExceptionally(e);
+            }
+        };
+        executor.execute(task);
+        return future;
     }
+    }
+
 
     public <T> CompletableFuture<T> submitSearch(HttpRequest request,
                                                   int okCode,
