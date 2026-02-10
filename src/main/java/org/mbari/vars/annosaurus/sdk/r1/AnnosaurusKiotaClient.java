@@ -35,6 +35,7 @@ import java.util.function.Supplier;
 import org.mbari.vars.annosaurus.sdk.AnnosaurusFactory;
 import org.mbari.vars.annosaurus.sdk.kiota.Annosaurus;
 import org.mbari.vars.annosaurus.sdk.kiota.models.CountForVideoReferenceSC;
+import org.mbari.vars.annosaurus.sdk.kiota.models.MoveImagedMoments;
 import org.mbari.vars.annosaurus.sdk.kiota.models.NotFound;
 import org.mbari.vars.annosaurus.sdk.r1.models.AncillaryData;
 import org.mbari.vars.annosaurus.sdk.r1.models.AncillaryDataDeleteCount;
@@ -65,6 +66,11 @@ public class AnnosaurusKiotaClient implements AnnotationService {
     public AnnosaurusKiotaClient(URI baseUri, String apiKey) {
         this.annosaurus = AnnosaurusFactory.create(baseUri.toString(), apiKey);
     }
+
+    @Override
+    public CompletableFuture<Count> bulkMove(UUID videoReferenceUuid, List<UUID> imagedMomentUuids, Instant videoReferenceStartTimestamp) {
+        throw new UnsupportedOperationException("`bulkMove` is not implemented");
+    }  
 
     @Override
     public CompletableFuture<AnnotationCount> countAnnotations(UUID videoReferenceUuid) {

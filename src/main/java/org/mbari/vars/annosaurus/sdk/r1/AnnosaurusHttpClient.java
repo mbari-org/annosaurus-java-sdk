@@ -766,6 +766,26 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
         return submit(request, 200, body -> gson.fromJson(body, TYPE_LIST_ANCILLARY_DATA));
     }
 
+    public CompletableFuture<Count> bulkMove(UUID videoReferenceUuid, List<UUID> imagedMomentUuids, Instant videoReferenceStartTimestamp) {
+        var uri = buildUri("/imagedmoments/bulk/move");
+        var data = Map.of(
+                "videoReferenceUuid", videoReferenceUuid,
+                "imagedMomentUuids", imagedMomentUuids,
+                "videoReferenceStartTimestamp", Instants.COMPACT_TIME_FORMATTER_MS.format(videoReferenceStartTimestamp)
+        );
+        var json = gson.toJson(data);
+        var auth = authorizeIfNeeded();
+        var request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Authorization", "BEARER " + auth.getAccessToken())
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        debugLog.logRequest(request, json);
+        return submit(request, 200, body -> gson.fromJson(body, Count.class));
+    }
+
     @Override
     public CompletableFuture<ConceptsRenamed> renameConcepts(String oldConcept, String newConcept) {
         var uri = buildUri("/observations/concept/rename");

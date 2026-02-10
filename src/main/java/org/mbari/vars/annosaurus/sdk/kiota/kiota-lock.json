@@ -18,10 +18,10 @@
  * #L%
  */
 {
-  "descriptionHash": "ED9F0DC81EC63FEC753E9636F03066314BB8E7AE01AEEA0D84863F57BE6022B57716C5E9CD898128502EEC2DD10EA1064F3E9D6AC76D2EE214B52DDAF814DE46",
+  "descriptionHash": "",
   "descriptionLocation": "../../../../../../../resources/docs.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.29.0",
+  "kiotaVersion": "1.30.0",
   "clientClassName": "Annosaurus",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "org.mbari.vars.annosaurus.sdk.kiota",

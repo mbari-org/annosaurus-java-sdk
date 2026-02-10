@@ -52,6 +52,11 @@ import org.mbari.vars.annosaurus.sdk.r1.models.ObservationsUpdate;
 public class NoopAnnotationService implements AnnotationService, VideoReferenceService {
 
     @Override
+    public CompletableFuture<Count> bulkMove(UUID videoReferenceUuid, List<UUID> imagedMomentUuids, Instant videoReferenceStartTimestamp) {
+        return CompletableFuture.failedFuture(new UnsupportedOperationException("`bulkMove` is not implemented"));
+    }
+
+    @Override
     public CompletableFuture<List<String>> findAllMissionIds() {
         return CompletableFuture.failedFuture(new UnsupportedOperationException("`findAllMissionIds` is not implemented"));
     }

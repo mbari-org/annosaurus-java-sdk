@@ -51,6 +51,8 @@ import java.util.UUID;
  */
 public interface AnnotationService {
 
+    CompletableFuture<Count> bulkMove(UUID videoReferenceUuid, List<UUID> imagedMomentUuids, Instant videoReferenceStartTimestamp);
+
     CompletableFuture<AnnotationCount> countAnnotations(UUID videoReferenceUuid);
 
     CompletableFuture<List<AnnotationCount>> countAnnotationsGroupByVideoReferenceUuid();

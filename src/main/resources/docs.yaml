@@ -1,7 +1,6 @@
-openapi: 3.0.0
 info:
   title: annosaurus
-  version: 1.2.5
+  version: 1.4.8
 paths:
   /v1/auth:
     post:
@@ -2534,7 +2533,7 @@ paths:
       tags:
       - Fast Annotation Queries
       description: Find annotations by video reference UUID
-      operationId: findAnnotationsByVideoReferenceUuidFast
+      operationId: findAnnotationsByVideoReferenceUuid
       parameters:
       - name: videoReferenceUuid
         in: path
@@ -5149,6 +5148,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerError'
+  /v1/query/download:
+    post:
+      tags:
+      - Query
+      description: Run a query and download the results as a tab-separate value file
+      operationId: downloadTsv
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers:
+            Content-Disposition:
+              required: true
+              schema:
+                type: string
+            Content-Type:
+              required: true
+              schema:
+                type: string
+          content:
+            text/tab-separated-values:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
   /v1/query/count:
     post:
       tags:
@@ -5267,7 +5313,7 @@ components:
         video_reference_uuid:
           type: string
           format: uuid
-        last_udpated:
+        last_updated:
           type: string
     AnnotationUpdateSC:
       title: AnnotationUpdateSC
@@ -5667,6 +5713,8 @@ components:
           type: boolean
         like:
           type: string
+        notlike:
+          type: string
         max:
           type: number
           format: double
@@ -6045,6 +6093,8 @@ components:
           items:
             type: string
             format: uuid
+        videoReferenceStartTimestamp:
+          type: string
     MultiRequest:
       title: MultiRequest
       type: object
