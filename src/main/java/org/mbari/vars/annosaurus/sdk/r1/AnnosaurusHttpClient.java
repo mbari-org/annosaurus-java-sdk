@@ -96,11 +96,7 @@ public class AnnosaurusHttpClient extends BaseHttpClient implements AnnotationSe
 
     public CompletableFuture<Count> bulkMove(UUID videoReferenceUuid, List<UUID> imagedMomentUuids, Instant videoReferenceStartTimestamp) {
         var uri = buildUri("/imagedmoments/bulk/move");
-        var data = Map.of(
-                "videoReferenceUuid", videoReferenceUuid,
-                "imagedMomentUuids", imagedMomentUuids,
-                "videoReferenceStartTimestamp", Instants.COMPACT_TIME_FORMATTER_MS.format(videoReferenceStartTimestamp)
-        );
+        var data = new MoveImagedMoments(videoReferenceUuid, imagedMomentUuids, videoReferenceStartTimestamp);
         var json = gson.toJson(data);
         var auth = authorizeIfNeeded();
         var request = HttpRequest.newBuilder()
