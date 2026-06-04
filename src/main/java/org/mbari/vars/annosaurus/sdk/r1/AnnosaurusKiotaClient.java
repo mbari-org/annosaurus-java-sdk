@@ -67,6 +67,10 @@ public class AnnosaurusKiotaClient implements AnnotationService {
         this.annosaurus = AnnosaurusFactory.create(baseUri.toString(), apiKey);
     }
 
+    public AnnosaurusKiotaClient(Annosaurus annosaurus) {
+        this.annosaurus = annosaurus;
+    }
+
     @Override
     public CompletableFuture<Count> bulkMove(UUID videoReferenceUuid, List<UUID> imagedMomentUuids, Instant videoReferenceStartTimestamp) {
         throw new UnsupportedOperationException("`bulkMove` is not implemented");

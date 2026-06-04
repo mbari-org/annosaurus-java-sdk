@@ -21,7 +21,7 @@ Java SDK for the [Annosaurus](https://github.com/mbari-org/annosaurus) microserv
 <dependency>
     <groupId>org.mbari.vars</groupId>
     <artifactId>annosaurus-java-sdk</artifactId>
-    <version>0.0.9</version>
+    <version>0.0.18</version>
 </dependency>
 ```
 
