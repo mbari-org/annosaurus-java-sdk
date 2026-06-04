@@ -22,9 +22,13 @@ package org.mbari.vars.annosaurus.sdk.r1.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Instant;
 import java.util.UUID;
+
+import org.mbari.vars.annosaurus.sdk.kiota.models.ImageReferenceSC;
 
 /**
  * @author Brian Schlining
@@ -124,5 +128,27 @@ public class ImageReference implements Cloneable {
 
     public void setHeight(Integer height) {
         this.height = height;
+    }
+
+    public static ImageReference fromKiota(ImageReferenceSC sc) {
+        if (sc == null) {
+            return null;
+        }
+        var i = new ImageReference();
+        i.setUuid(sc.getUuid());
+        i.setDescription(sc.getDescription());
+        try {
+            i.setUrl(URI.create(sc.getUrl()).toURL());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        i.setFormat(sc.getFormat());
+        if (sc.getLastUpdatedTime() != null) {
+            i.setLastUpdatedTime(Instant.parse(sc.getLastUpdatedTime()));
+        }
+
+        i.setWidth(sc.getWidthPixels());
+        i.setHeight(sc.getHeightPixels());
+        return i;
     }
 }

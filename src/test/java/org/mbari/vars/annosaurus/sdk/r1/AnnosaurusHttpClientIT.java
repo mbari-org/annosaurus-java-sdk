@@ -29,6 +29,8 @@ public class AnnosaurusHttpClientIT {
 
     public static String baseUrl = "https://gehenna.shore.mbari.org/anno/v1";
     // public static String baseUrl = "https://localhost/anno/v1";
+    public static String kiotaBaseUrl = "https://gehenna.shore.mbari.org/anno";
+    // public static String kiotaBaseUrl = "https://localhost/anno";
     public static String apiKey = "foofoo";
 
     @Test

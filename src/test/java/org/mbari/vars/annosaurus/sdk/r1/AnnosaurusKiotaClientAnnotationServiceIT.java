@@ -20,12 +20,12 @@ package org.mbari.vars.annosaurus.sdk.r1;
  * #L%
  */
 
-import java.time.Duration;
+import java.net.URI;
 
-public class AnnotationServiceIT extends AnnotationServiceITBase {
+public class AnnosaurusKiotaClientAnnotationServiceIT extends AnnotationServiceITBase {
 
     @Override
     protected AnnotationService createService() {
-        return new AnnosaurusHttpClient(AnnosaurusHttpClientIT.baseUrl, Duration.ofSeconds(10), AnnosaurusHttpClientIT.apiKey);
+        return new AnnosaurusKiotaClient(URI.create(AnnosaurusHttpClientIT.kiotaBaseUrl), AnnosaurusHttpClientIT.apiKey);
     }
 }

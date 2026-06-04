@@ -73,6 +73,7 @@ import org.mbari.vars.annosaurus.sdk.r1.models.ConcurrentRequestCount;
 import org.mbari.vars.annosaurus.sdk.r1.models.Count;
 import org.mbari.vars.annosaurus.sdk.r1.models.DeleteCount;
 import org.mbari.vars.annosaurus.sdk.r1.models.Image;
+import org.mbari.vars.annosaurus.sdk.r1.models.ImageReference;
 import org.mbari.vars.annosaurus.sdk.r1.models.ImagedMoment;
 import org.mbari.vars.annosaurus.sdk.r1.models.Index;
 import org.mbari.vars.annosaurus.sdk.r1.models.MultiRequest;
@@ -689,8 +690,14 @@ public class AnnosaurusKiotaClient implements AnnotationService {
         if (sc.getAssociations() != null) {
             a.setAssociations(sc.getAssociations().stream().map(Association::toKiota).toList());
         }
+        else {
+            a.setAssociations(List.of());
+        }
         if (sc.getAncillaryData() != null) {
             a.setAncillaryData(AncillaryData.fromKiota(sc.getAncillaryData()));
+        }
+        if (sc.getImageReferences() != null) {
+            a.setImageReferences(sc.getImageReferences().stream().map(ImageReference::fromKiota).toList());
         }
         return a;
     }

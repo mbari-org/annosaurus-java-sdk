@@ -21,9 +21,13 @@ package org.mbari.vars.annosaurus.sdk.r1.models;
  */
 
 import com.google.gson.annotations.SerializedName;
+
+import org.mbari.vars.annosaurus.sdk.kiota.models.ImageSC;
 import org.mbari.vcr4j.VideoIndex;
 import org.mbari.vcr4j.time.Timecode;
 
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
@@ -79,6 +83,7 @@ public class Image implements ImagedMoment, Cloneable {
         elapsedTime = i.getElapsedTime();
         recordedTimestamp = i.getRecordedTimestamp();
     }
+
 
     public UUID getImageReferenceUuid() {
         return imageReferenceUuid;
@@ -189,5 +194,31 @@ public class Image implements ImagedMoment, Cloneable {
                 ", elapsedTime=" + elapsedTime +
                 ", recordedTimestamp=" + recordedTimestamp +
                 '}';
+    }
+
+    public static Image fromKiota(ImageSC sc) {
+        var a = new Image();
+        a.setImageReferenceUuid(sc.getImageReferenceUuid());
+        a.setFormat(sc.getFormat());
+        a.setWidth(sc.getWidthPixels());
+        a.setHeight(sc.getHeightPixels());
+        try {
+            a.setUrl(URI.create(sc.getUrl()).toURL());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        a.setDescription(sc.getDescription());
+        a.setVideoReferenceUuid(sc.getVideoReferenceUuid());
+        a.setImagedMomentUuid(sc.getImagedMomentUuid());
+        if (sc.getTimecode() != null) {
+            a.setTimecode(new Timecode(sc.getTimecode()));
+        }
+        if (sc.getElapsedTimeMillis() != null) {
+            a.setElapsedTime(Duration.ofMillis(sc.getElapsedTimeMillis()));
+        }
+        if (sc.getRecordedTimestamp() != null) {
+            a.setRecordedTimestamp(Instant.parse(sc.getRecordedTimestamp()));
+        }
+        return a;
     }
 }
