@@ -125,6 +125,17 @@ public class ImageReference implements Cloneable {
         this.height = height;
     }
 
+    public ImageReferenceSC toKiota() {
+        var sc = new ImageReferenceSC();
+        sc.setUuid(this.getUuid());
+        sc.setDescription(this.getDescription());
+        if (this.getUrl() != null) sc.setUrl(this.getUrl().toString());
+        sc.setFormat(this.getFormat());
+        sc.setWidthPixels(this.getWidth());
+        sc.setHeightPixels(this.getHeight());
+        return sc;
+    }
+
     public static ImageReference fromKiota(ImageReferenceSC sc) {
         if (sc == null) {
             return null;

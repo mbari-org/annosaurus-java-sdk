@@ -750,6 +750,9 @@ public class AnnosaurusKiotaClient implements AnnotationService {
         if (a.getAncillaryData() != null) {
             sc.setAncillaryData(a.getAncillaryData().toKiota());
         }
+        if (a.getImageReferences() != null) {
+            sc.setImageReferences(a.getImageReferences().stream().map(ImageReference::toKiota).toList());
+        }
         return sc;
     }
 

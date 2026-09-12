@@ -259,9 +259,12 @@ public class AncillaryData {
         Optional.ofNullable(kiota.getY()).ifPresent(v -> ad.setY(v.doubleValue()));
         Optional.ofNullable(kiota.getZ()).ifPresent(v -> ad.setZ(v.doubleValue()));
         ad.uuid = kiota.getUuid();
+        ad.setImagedMomentUuid(kiota.getImagedMomentUuid());
         Optional.ofNullable(kiota.getLastUpdatedTime()).ifPresent(v -> {
             Instants.parseIso8601(v).ifPresent(w -> ad.lastUpdatedTime = w);
-        } );
+        });
+        Optional.ofNullable(kiota.getRecordedTimestamp()).ifPresent(v ->
+            Instants.parseIso8601(v).ifPresent(ad::setRecordedTimestamp));
         return ad;
     }
 
@@ -285,6 +288,10 @@ public class AncillaryData {
         kiota.setY(this.getY());
         kiota.setZ(this.getZ());
         kiota.setUuid(this.getUuid());
+        kiota.setImagedMomentUuid(this.getImagedMomentUuid());
+        if (this.getRecordedTimestamp() != null) {
+            kiota.setRecordedTimestamp(this.getRecordedTimestamp().toString());
+        }
         if (this.getLastUpdatedTime() != null) {
             kiota.setLastUpdatedTime(Instants.TIME_FORMATTER.format(this.getLastUpdatedTime()));
         }
