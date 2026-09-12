@@ -1,25 +1,5 @@
 package org.mbari.vars.annosaurus.sdk.kiota.v1.annotations;
 
-/*-
- * #%L
- * org.mbari.vars:annosaurus-java-sdk
- * %%
- * Copyright (C) 2025 - 2026 Monterey Bay Aquarium Research Institute
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import com.microsoft.kiota.BaseRequestBuilder;
 import com.microsoft.kiota.BaseRequestConfiguration;
 import com.microsoft.kiota.HttpMethod;
@@ -39,6 +19,7 @@ import org.mbari.vars.annosaurus.sdk.kiota.models.BadRequest;
 import org.mbari.vars.annosaurus.sdk.kiota.models.NotFound;
 import org.mbari.vars.annosaurus.sdk.kiota.models.ServerError;
 import org.mbari.vars.annosaurus.sdk.kiota.models.Unauthorized;
+import org.mbari.vars.annosaurus.sdk.kiota.v1.annotations.association.AssociationRequestBuilder;
 import org.mbari.vars.annosaurus.sdk.kiota.v1.annotations.bulk.BulkRequestBuilder;
 import org.mbari.vars.annosaurus.sdk.kiota.v1.annotations.concurrent.ConcurrentRequestBuilder;
 import org.mbari.vars.annosaurus.sdk.kiota.v1.annotations.imagereference.ImagereferenceRequestBuilder;
@@ -50,6 +31,14 @@ import org.mbari.vars.annosaurus.sdk.kiota.v1.annotations.videoreference.Videore
  */
 @jakarta.annotation.Generated("com.microsoft.kiota")
 public class AnnotationsRequestBuilder extends BaseRequestBuilder {
+    /**
+     * The association property
+     * @return a {@link AssociationRequestBuilder}
+     */
+    @jakarta.annotation.Nonnull
+    public AssociationRequestBuilder association() {
+        return new AssociationRequestBuilder(pathParameters, requestAdapter);
+    }
     /**
      * The bulk property
      * @return a {@link BulkRequestBuilder}

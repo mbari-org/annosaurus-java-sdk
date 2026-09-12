@@ -1,25 +1,5 @@
 package org.mbari.vars.annosaurus.sdk.kiota.models;
 
-/*-
- * #%L
- * org.mbari.vars:annosaurus-java-sdk
- * %%
- * Copyright (C) 2025 - 2026 Monterey Bay Aquarium Research Institute
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import com.microsoft.kiota.serialization.AdditionalDataHolder;
 import com.microsoft.kiota.serialization.Parsable;
 import com.microsoft.kiota.serialization.ParseNode;
@@ -73,6 +53,10 @@ public class ConstraintRequest implements AdditionalDataHolder, Parsable {
      * The minmax property
      */
     private java.util.List<Double> minmax;
+    /**
+     * The notlike property
+     */
+    private String notlike;
     /**
      * Instantiates a new {@link ConstraintRequest} and sets the default values.
      */
@@ -135,7 +119,7 @@ public class ConstraintRequest implements AdditionalDataHolder, Parsable {
      */
     @jakarta.annotation.Nonnull
     public Map<String, java.util.function.Consumer<ParseNode>> getFieldDeserializers() {
-        final HashMap<String, java.util.function.Consumer<ParseNode>> deserializerMap = new HashMap<String, java.util.function.Consumer<ParseNode>>(10);
+        final HashMap<String, java.util.function.Consumer<ParseNode>> deserializerMap = new HashMap<String, java.util.function.Consumer<ParseNode>>(11);
         deserializerMap.put("between", (n) -> { this.setBetween(n.getCollectionOfPrimitiveValues(String.class)); });
         deserializerMap.put("column", (n) -> { this.setColumn(n.getStringValue()); });
         deserializerMap.put("contains", (n) -> { this.setContains(n.getStringValue()); });
@@ -146,6 +130,7 @@ public class ConstraintRequest implements AdditionalDataHolder, Parsable {
         deserializerMap.put("max", (n) -> { this.setMax(n.getDoubleValue()); });
         deserializerMap.put("min", (n) -> { this.setMin(n.getDoubleValue()); });
         deserializerMap.put("minmax", (n) -> { this.setMinmax(n.getCollectionOfPrimitiveValues(Double.class)); });
+        deserializerMap.put("notlike", (n) -> { this.setNotlike(n.getStringValue()); });
         return deserializerMap;
     }
     /**
@@ -197,6 +182,14 @@ public class ConstraintRequest implements AdditionalDataHolder, Parsable {
         return this.minmax;
     }
     /**
+     * Gets the notlike property value. The notlike property
+     * @return a {@link String}
+     */
+    @jakarta.annotation.Nullable
+    public String getNotlike() {
+        return this.notlike;
+    }
+    /**
      * Serializes information the current object
      * @param writer Serialization writer to use to serialize this model
      */
@@ -212,6 +205,7 @@ public class ConstraintRequest implements AdditionalDataHolder, Parsable {
         writer.writeDoubleValue("max", this.getMax());
         writer.writeDoubleValue("min", this.getMin());
         writer.writeCollectionOfPrimitiveValues("minmax", this.getMinmax());
+        writer.writeStringValue("notlike", this.getNotlike());
         writer.writeAdditionalData(this.getAdditionalData());
     }
     /**
@@ -290,5 +284,12 @@ public class ConstraintRequest implements AdditionalDataHolder, Parsable {
      */
     public void setMinmax(@jakarta.annotation.Nullable final java.util.List<Double> value) {
         this.minmax = value;
+    }
+    /**
+     * Sets the notlike property value. The notlike property
+     * @param value Value to set for the notlike property.
+     */
+    public void setNotlike(@jakarta.annotation.Nullable final String value) {
+        this.notlike = value;
     }
 }

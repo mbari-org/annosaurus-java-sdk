@@ -1,31 +1,12 @@
 package org.mbari.vars.annosaurus.sdk.kiota.v1.query;
 
-/*-
- * #%L
- * org.mbari.vars:annosaurus-java-sdk
- * %%
- * Copyright (C) 2025 - 2026 Monterey Bay Aquarium Research Institute
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import com.microsoft.kiota.BaseRequestBuilder;
 import com.microsoft.kiota.RequestAdapter;
 import java.util.HashMap;
 import java.util.Objects;
 import org.mbari.vars.annosaurus.sdk.kiota.v1.query.columns.ColumnsRequestBuilder;
 import org.mbari.vars.annosaurus.sdk.kiota.v1.query.count.CountRequestBuilder;
+import org.mbari.vars.annosaurus.sdk.kiota.v1.query.download.DownloadRequestBuilder;
 import org.mbari.vars.annosaurus.sdk.kiota.v1.query.run.RunRequestBuilder;
 /**
  * Builds and executes requests for operations under /v1/query
@@ -47,6 +28,14 @@ public class QueryRequestBuilder extends BaseRequestBuilder {
     @jakarta.annotation.Nonnull
     public CountRequestBuilder count() {
         return new CountRequestBuilder(pathParameters, requestAdapter);
+    }
+    /**
+     * The download property
+     * @return a {@link DownloadRequestBuilder}
+     */
+    @jakarta.annotation.Nonnull
+    public DownloadRequestBuilder download() {
+        return new DownloadRequestBuilder(pathParameters, requestAdapter);
     }
     /**
      * The run property

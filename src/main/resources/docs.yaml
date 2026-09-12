@@ -1,7 +1,39 @@
+openapi: 3.0.0
 info:
   title: annosaurus
-  version: 1.4.8
+  version: 1.6.4
 paths:
+  /v1/health:
+    get:
+      tags:
+      - Health
+      description: Health check
+      operationId: health
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
   /v1/auth:
     post:
       tags:
@@ -35,37 +67,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unauthorized'
-        '404':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFound'
-        '500':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ServerError'
-  /v1/health:
-    get:
-      tags:
-      - Health
-      description: Health check
-      operationId: health
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HealthStatus'
-        '400':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequest'
         '404':
           description: ''
           content:
@@ -290,6 +291,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConcurrentRequestCountSC'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+  /v1/annotations/association/{associationUuid}:
+    get:
+      tags:
+      - Annotations
+      description: Find an annotation by one of its association UUIDs
+      operationId: findAnnotationByAssociationUuid
+      parameters:
+      - name: associationUuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnotationSC'
         '400':
           description: ''
           content:
@@ -2610,6 +2649,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
         '404':
           description: ''
           content:
@@ -2622,6 +2667,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerError'
+      security:
+      - {}
+      - httpAuth: []
   /v1/fast:
     get:
       tags:
@@ -3589,6 +3637,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
         '404':
           description: ''
           content:
@@ -3601,6 +3655,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerError'
+      security:
+      - {}
+      - httpAuth: []
   /v1/imagedmoments/videoreference:
     get:
       tags:

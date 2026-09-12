@@ -1,25 +1,5 @@
 package org.mbari.vars.annosaurus.sdk.kiota.v1.fast.videoreference.item;
 
-/*-
- * #%L
- * org.mbari.vars:annosaurus-java-sdk
- * %%
- * Copyright (C) 2025 - 2026 Monterey Bay Aquarium Research Institute
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import com.microsoft.kiota.BaseRequestBuilder;
 import com.microsoft.kiota.BaseRequestConfiguration;
 import com.microsoft.kiota.HttpMethod;
@@ -38,6 +18,7 @@ import org.mbari.vars.annosaurus.sdk.kiota.models.BadRequest;
 import org.mbari.vars.annosaurus.sdk.kiota.models.DeleteCountSC;
 import org.mbari.vars.annosaurus.sdk.kiota.models.NotFound;
 import org.mbari.vars.annosaurus.sdk.kiota.models.ServerError;
+import org.mbari.vars.annosaurus.sdk.kiota.models.Unauthorized;
 /**
  * Builds and executes requests for operations under /v1/fast/videoreference/{videoReferenceUuid}
  */
@@ -63,6 +44,7 @@ public class WithVideoReferenceUuItemRequestBuilder extends BaseRequestBuilder {
      * Delete annotations by video reference UUID
      * @return a {@link DeleteCountSC}
      * @throws BadRequest When receiving a 400 status code
+     * @throws Unauthorized When receiving a 401 status code
      * @throws NotFound When receiving a 404 status code
      * @throws ServerError When receiving a 500 status code
      */
@@ -75,6 +57,7 @@ public class WithVideoReferenceUuItemRequestBuilder extends BaseRequestBuilder {
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return a {@link DeleteCountSC}
      * @throws BadRequest When receiving a 400 status code
+     * @throws Unauthorized When receiving a 401 status code
      * @throws NotFound When receiving a 404 status code
      * @throws ServerError When receiving a 500 status code
      */
@@ -83,6 +66,7 @@ public class WithVideoReferenceUuItemRequestBuilder extends BaseRequestBuilder {
         final RequestInformation requestInfo = toDeleteRequestInformation(requestConfiguration);
         final HashMap<String, ParsableFactory<? extends Parsable>> errorMapping = new HashMap<String, ParsableFactory<? extends Parsable>>();
         errorMapping.put("400", BadRequest::createFromDiscriminatorValue);
+        errorMapping.put("401", Unauthorized::createFromDiscriminatorValue);
         errorMapping.put("404", NotFound::createFromDiscriminatorValue);
         errorMapping.put("500", ServerError::createFromDiscriminatorValue);
         return this.requestAdapter.send(requestInfo, errorMapping, DeleteCountSC::createFromDiscriminatorValue);
