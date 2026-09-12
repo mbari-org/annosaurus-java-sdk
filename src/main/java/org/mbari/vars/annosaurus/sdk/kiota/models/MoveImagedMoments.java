@@ -1,24 +1,19 @@
-package org.mbari.vars.annosaurus.sdk.kiota.models;
-
-/*-
- * #%L
- * org.mbari.vars:annosaurus-java-sdk
- * %%
- * Copyright (C) 2025 - 2026 Monterey Bay Aquarium Research Institute
- * %%
+/*
+ * Copyright © 2025 MBARI (brian@mbari.org)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
  */
+package org.mbari.vars.annosaurus.sdk.kiota.models;
 
 import com.microsoft.kiota.serialization.AdditionalDataHolder;
 import com.microsoft.kiota.serialization.Parsable;
@@ -38,6 +33,10 @@ public class MoveImagedMoments implements AdditionalDataHolder, Parsable {
      * The imagedMomentUuids property
      */
     private java.util.List<UUID> imagedMomentUuids;
+    /**
+     * The videoReferenceStartTimestamp property
+     */
+    private String videoReferenceStartTimestamp;
     /**
      * The videoReferenceUuid property
      */
@@ -72,8 +71,9 @@ public class MoveImagedMoments implements AdditionalDataHolder, Parsable {
      */
     @jakarta.annotation.Nonnull
     public Map<String, java.util.function.Consumer<ParseNode>> getFieldDeserializers() {
-        final HashMap<String, java.util.function.Consumer<ParseNode>> deserializerMap = new HashMap<String, java.util.function.Consumer<ParseNode>>(2);
+        final HashMap<String, java.util.function.Consumer<ParseNode>> deserializerMap = new HashMap<String, java.util.function.Consumer<ParseNode>>(3);
         deserializerMap.put("imagedMomentUuids", (n) -> { this.setImagedMomentUuids(n.getCollectionOfPrimitiveValues(UUID.class)); });
+        deserializerMap.put("videoReferenceStartTimestamp", (n) -> { this.setVideoReferenceStartTimestamp(n.getStringValue()); });
         deserializerMap.put("videoReferenceUuid", (n) -> { this.setVideoReferenceUuid(n.getUUIDValue()); });
         return deserializerMap;
     }
@@ -84,6 +84,14 @@ public class MoveImagedMoments implements AdditionalDataHolder, Parsable {
     @jakarta.annotation.Nullable
     public java.util.List<UUID> getImagedMomentUuids() {
         return this.imagedMomentUuids;
+    }
+    /**
+     * Gets the videoReferenceStartTimestamp property value. The videoReferenceStartTimestamp property
+     * @return a {@link String}
+     */
+    @jakarta.annotation.Nullable
+    public String getVideoReferenceStartTimestamp() {
+        return this.videoReferenceStartTimestamp;
     }
     /**
      * Gets the videoReferenceUuid property value. The videoReferenceUuid property
@@ -100,6 +108,7 @@ public class MoveImagedMoments implements AdditionalDataHolder, Parsable {
     public void serialize(@jakarta.annotation.Nonnull final SerializationWriter writer) {
         Objects.requireNonNull(writer);
         writer.writeCollectionOfPrimitiveValues("imagedMomentUuids", this.getImagedMomentUuids());
+        writer.writeStringValue("videoReferenceStartTimestamp", this.getVideoReferenceStartTimestamp());
         writer.writeUUIDValue("videoReferenceUuid", this.getVideoReferenceUuid());
         writer.writeAdditionalData(this.getAdditionalData());
     }
@@ -116,6 +125,13 @@ public class MoveImagedMoments implements AdditionalDataHolder, Parsable {
      */
     public void setImagedMomentUuids(@jakarta.annotation.Nullable final java.util.List<UUID> value) {
         this.imagedMomentUuids = value;
+    }
+    /**
+     * Sets the videoReferenceStartTimestamp property value. The videoReferenceStartTimestamp property
+     * @param value Value to set for the videoReferenceStartTimestamp property.
+     */
+    public void setVideoReferenceStartTimestamp(@jakarta.annotation.Nullable final String value) {
+        this.videoReferenceStartTimestamp = value;
     }
     /**
      * Sets the videoReferenceUuid property value. The videoReferenceUuid property

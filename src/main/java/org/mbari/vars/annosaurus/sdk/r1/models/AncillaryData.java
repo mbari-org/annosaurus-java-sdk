@@ -1,24 +1,19 @@
-package org.mbari.vars.annosaurus.sdk.r1.models;
-
-/*-
- * #%L
- * org.mbari.vars:annosaurus-java-sdk
- * %%
- * Copyright (C) 2025 - 2026 Monterey Bay Aquarium Research Institute
- * %%
+/*
+ * Copyright © 2025 MBARI (brian@mbari.org)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
  */
+package org.mbari.vars.annosaurus.sdk.r1.models;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -264,9 +259,12 @@ public class AncillaryData {
         Optional.ofNullable(kiota.getY()).ifPresent(v -> ad.setY(v.doubleValue()));
         Optional.ofNullable(kiota.getZ()).ifPresent(v -> ad.setZ(v.doubleValue()));
         ad.uuid = kiota.getUuid();
+        ad.setImagedMomentUuid(kiota.getImagedMomentUuid());
         Optional.ofNullable(kiota.getLastUpdatedTime()).ifPresent(v -> {
             Instants.parseIso8601(v).ifPresent(w -> ad.lastUpdatedTime = w);
-        } );
+        });
+        Optional.ofNullable(kiota.getRecordedTimestamp()).ifPresent(v ->
+            Instants.parseIso8601(v).ifPresent(ad::setRecordedTimestamp));
         return ad;
     }
 
@@ -290,6 +288,10 @@ public class AncillaryData {
         kiota.setY(this.getY());
         kiota.setZ(this.getZ());
         kiota.setUuid(this.getUuid());
+        kiota.setImagedMomentUuid(this.getImagedMomentUuid());
+        if (this.getRecordedTimestamp() != null) {
+            kiota.setRecordedTimestamp(this.getRecordedTimestamp().toString());
+        }
         if (this.getLastUpdatedTime() != null) {
             kiota.setLastUpdatedTime(Instants.TIME_FORMATTER.format(this.getLastUpdatedTime()));
         }

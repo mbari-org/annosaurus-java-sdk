@@ -1,24 +1,19 @@
-package org.mbari.vars.annosaurus.sdk.kiota.models;
-
-/*-
- * #%L
- * org.mbari.vars:annosaurus-java-sdk
- * %%
- * Copyright (C) 2025 - 2026 Monterey Bay Aquarium Research Institute
- * %%
+/*
+ * Copyright © 2025 MBARI (brian@mbari.org)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
  */
+package org.mbari.vars.annosaurus.sdk.kiota.models;
 
 import com.microsoft.kiota.serialization.AdditionalDataHolder;
 import com.microsoft.kiota.serialization.Parsable;
@@ -71,9 +66,9 @@ public class AnnotationSC implements AdditionalDataHolder, Parsable {
      */
     private java.util.List<ImageReferenceSC> imageReferences;
     /**
-     * The last_udpated property
+     * The last_updated property
      */
-    private String lastUdpated;
+    private String lastUpdated;
     /**
      * The observation_timestamp property
      */
@@ -186,7 +181,7 @@ public class AnnotationSC implements AdditionalDataHolder, Parsable {
         deserializerMap.put("group", (n) -> { this.setGroup(n.getStringValue()); });
         deserializerMap.put("imaged_moment_uuid", (n) -> { this.setImagedMomentUuid(n.getUUIDValue()); });
         deserializerMap.put("image_references", (n) -> { this.setImageReferences(n.getCollectionOfObjectValues(ImageReferenceSC::createFromDiscriminatorValue)); });
-        deserializerMap.put("last_udpated", (n) -> { this.setLastUdpated(n.getStringValue()); });
+        deserializerMap.put("last_updated", (n) -> { this.setLastUpdated(n.getStringValue()); });
         deserializerMap.put("observation_timestamp", (n) -> { this.setObservationTimestamp(n.getStringValue()); });
         deserializerMap.put("observation_uuid", (n) -> { this.setObservationUuid(n.getUUIDValue()); });
         deserializerMap.put("observer", (n) -> { this.setObserver(n.getStringValue()); });
@@ -220,12 +215,12 @@ public class AnnotationSC implements AdditionalDataHolder, Parsable {
         return this.imageReferences;
     }
     /**
-     * Gets the last_udpated property value. The last_udpated property
+     * Gets the last_updated property value. The last_updated property
      * @return a {@link String}
      */
     @jakarta.annotation.Nullable
-    public String getLastUdpated() {
-        return this.lastUdpated;
+    public String getLastUpdated() {
+        return this.lastUpdated;
     }
     /**
      * Gets the observation_timestamp property value. The observation_timestamp property
@@ -290,7 +285,7 @@ public class AnnotationSC implements AdditionalDataHolder, Parsable {
         writer.writeStringValue("group", this.getGroup());
         writer.writeUUIDValue("imaged_moment_uuid", this.getImagedMomentUuid());
         writer.writeCollectionOfObjectValues("image_references", this.getImageReferences());
-        writer.writeStringValue("last_udpated", this.getLastUdpated());
+        writer.writeStringValue("last_updated", this.getLastUpdated());
         writer.writeStringValue("observation_timestamp", this.getObservationTimestamp());
         writer.writeUUIDValue("observation_uuid", this.getObservationUuid());
         writer.writeStringValue("observer", this.getObserver());
@@ -370,11 +365,11 @@ public class AnnotationSC implements AdditionalDataHolder, Parsable {
         this.imageReferences = value;
     }
     /**
-     * Sets the last_udpated property value. The last_udpated property
-     * @param value Value to set for the last_udpated property.
+     * Sets the last_updated property value. The last_updated property
+     * @param value Value to set for the last_updated property.
      */
-    public void setLastUdpated(@jakarta.annotation.Nullable final String value) {
-        this.lastUdpated = value;
+    public void setLastUpdated(@jakarta.annotation.Nullable final String value) {
+        this.lastUpdated = value;
     }
     /**
      * Sets the observation_timestamp property value. The observation_timestamp property
